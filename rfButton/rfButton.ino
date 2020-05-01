@@ -14,13 +14,35 @@
 #define button 4
 #define led 5
 
-RF24 radio(7, 8); // CE, CSN
+#define BUTTON_BLUE
+//#define BUTTON_GREEN
+//#define BUTTON_RED
+//#define BUTTON_YELLOW
 
+#ifdef BUTTON_BLUE
 const byte address[6] = "00001";
+const char text[] = "BUTTON_BLUE";
+#endif
+
+#ifdef BUTTON_GREEN
+const byte address[6] = "00002";
+const char text[] = "BUTTON_GREEN";
+#endif
+
+#ifdef BUTTON_RED
+const byte address[6] = "00003";
+const char text[] = "BUTTON_RED";
+#endif
+
+#ifdef BUTTON_YELLOW
+const byte address[6] = "00004";
+const char text[] = "BUTTON_YELLOW";
+#endif
+
+RF24 radio(7, 8); // CE, CSN
 
 int counter = 0;
 boolean buttonState = false;
-const char text[] = "BUTTON_BLUE";
 
 void setup() {
   radio.begin();
@@ -38,7 +60,18 @@ void setup() {
   pinMode(button, INPUT_PULLUP);
   digitalWrite(led, LOW);
   digitalWrite(LED_BUILTIN, LOW);
-  Serial.println("Button started");
+  #ifdef BUTTON_BLUE
+  Serial.println("Blue Button started");
+  #endif
+  #ifdef BUTTON_GREEN
+  Serial.println("Green Button started");
+  #endif  
+  #ifdef BUTTON_RED
+  Serial.println("Red Button started");
+  #endif 
+  #ifdef BUTTON_YELLOW
+  Serial.println("Yellow Button started");
+  #endif
 }
 
 void loop() {
