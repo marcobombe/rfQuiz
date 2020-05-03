@@ -25,18 +25,18 @@ const char text[] = "BUTTON_BLUE";
 #endif
 
 #ifdef BUTTON_GREEN
-const byte address[6] = "00002";
-const char text[] = "BUTTON_GREEN";
+const byte address[6] = "00001";
+const char text[] = "BUTTON_GREE";
 #endif
 
 #ifdef BUTTON_RED
-const byte address[6] = "00003";
+const byte address[6] = "00001";
 const char text[] = "BUTTON_RED";
 #endif
 
 #ifdef BUTTON_YELLOW
-const byte address[6] = "00004";
-const char text[] = "BUTTON_YELLOW";
+const byte address[6] = "00001";
+const char text[] = "BUTTON_YELL";
 #endif
 
 RF24 radio(7, 8); // CE, CSN
@@ -47,7 +47,8 @@ boolean buttonState = false;
 void setup() {
   radio.begin();
   radio.openWritingPipe(address);
-  radio.setPALevel(RF24_PA_MIN);
+  radio.setPALevel(RF24_PA_MAX);
+  radio.setChannel(1);
   radio.stopListening();
 
   //Initialize serial and wait for port to open:
@@ -75,6 +76,7 @@ void setup() {
 }
 
 void loop() {
+  delay(100);
   buttonState = digitalRead(button);//test for button press on this board
   if (buttonState == LOW)//button is pulled up so test for LOW
   {

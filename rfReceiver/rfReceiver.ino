@@ -18,10 +18,11 @@ const byte address[6] = "00001";
 int counter = 0;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   radio.begin();
-  radio.openReadingPipe(0, address);
-  radio.setPALevel(RF24_PA_MIN);
+  radio.openReadingPipe(1, address);
+  radio.setChannel(1);
+  radio.setPALevel(RF24_PA_MAX);
   radio.startListening();
 
   //Initialize serial and wait for port to open:
@@ -33,6 +34,7 @@ void setup() {
 }
 
 void loop() {
+  delay(100);
   if (radio.available()) {
     char text[32] = "";
     radio.read(&text, sizeof(text));
